@@ -1,28 +1,29 @@
 (function() {
-	var emptyString = "";
-	var beforebegin = "beforebegin";
-	var image = "{{image}}";
-	var link = "{{link}}";
-	var title = "{{title}}";
-	var site = "{{site}}";
-	var template = document.getElementById("item-template").innerHTML;
+	var EMPTY_STRING = "";
+	var BEFORE_BEGIN = "beforebegin";
+	var IMAGE_DATA = "{{image}}";
+	var LINK_DATA = "{{link}}";
+	var TITLE_DATA = "{{title}}";
+	var SITE_DATA = "{{site}}";
+	var SCROLL_EVENT = "scroll";
+	var MAX_DIF = 888;
+	var TEMPLATE = document.getElementById("item-template").innerHTML;
 	var itemsInsert = document.getElementById("items-insert");
+	var activeCall = {stillLoading: false}; // Boolean wrapped in object to allow for reference passing
 	function addToPage(dataArray) {
-		itemsInsert.insertAdjacentHTML(beforebegin, dataArray.map(function(data) {
-			return template
-				.split(image).join(data.image)
-				.split(link).join(data.link)
-				.split(title).join(data.title)
-				.split(site).join(data.site);
-		}).join(emptyString));
+		itemsInsert.insertAdjacentHTML(BEFORE_BEGIN, dataArray.map(function(data) {
+			return TEMPLATE
+				.split(IMAGE_DATA).join(data.image)
+				.split(LINK_DATA).join(data.link)
+				.split(TITLE_DATA).join(data.title)
+				.split(SITE_DATA).join(data.site);
+		}).join(EMPTY_STRING));
 	}
-	var activeCall = {stillLoading: false};
 	function loadMore() {
 		if(activeCall.stillLoading) return;
 		activeCall.stillLoading = true;
 		window.fakeAjaxCall(addToPage, activeCall);
 	}
-	var maxDif = 880;
 	function isScrollBottom() {
 		var height = document.height ||
 				Math.max(document.body.scrollHeight,
@@ -32,9 +33,8 @@
 				document.documentElement.offsetHeight);
 		var position = document.body.scrollTop ||
 				document.documentElement.scrollTop;
-		if(height - position < maxDif) loadMore();
+		if(height - position < MAX_DIF) loadMore();
 	}
-	var scrollEvent = "scroll";
-	window.addEventListener(scrollEvent, isScrollBottom, false);
+	window.addEventListener(SCROLL_EVENT, isScrollBottom, false);
 	loadMore();
 })();
