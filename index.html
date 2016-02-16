@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+
+<html>
+	<head>
+		<title>Top Articles from /r/NotTheOnion</title>
+		<link rel="stylesheet" href="main.css">
+		<link rel="icon" href="http://i.imgur.com/ORlbwgG.png">
+	</head>
+	<body>
+		<div id="head">
+			Top Articles from /r/NotTheOnion
+		</div>
+		<div id="items-list">
+			<script type="text/template" id="item-template">
+				<div class="item">
+					<a class="image" href="{{image}}" target="_blank" style="background-image: url({{image}});">
+					</a>
+					<a class="link" href="{{link}}" target="_blank">
+						{{title}}
+					</a>
+					<span class="site">
+						{{site}}
+					</span>
+				</div>
+			</script>
+			<div id="items-insert">
+			</div>
+		</div>
+	</body>
+	<script src="fakeServerData.js"></script>
+	<script src="main.js"></script>
+</html>
